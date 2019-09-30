@@ -15,6 +15,6 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 """
 
-from distutils.core import setup
+from setuptools import setup
 
-setup(name="roboviz", packages=["roboviz"], version="0.1")
+setup(name="roboviz", packages=["roboviz"], version="0.1", setup_requires=["wheel"])
