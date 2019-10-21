@@ -8,11 +8,11 @@ Copyright (C) 2018 Simon D. Levy
 This file is part of PyRoboViz.
 
 PyRoboViz is free software: you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as 
-published by the Free Software Foundation, either version 3 of the 
+it under the terms of the GNU Lesser General Public License as
+published by the Free Software Foundation, either version 3 of the
 License, or (at your option) any later version.
 
-PyRoboViz is distributed in the hope that it will be useful,     
+PyRoboViz is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
@@ -24,10 +24,6 @@ import matplotlib.cm as colormap
 import matplotlib.lines as mlines
 from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
-
-# This helps with Raspberry Pi
-import matplotlib
-matplotlib.use('TkAgg')
 
 class Visualizer(object):
 
@@ -55,7 +51,7 @@ class Visualizer(object):
 
         # Create a byte array to display the map with a color overlay
         self.bgrbytes = bytearray(map_size_pixels * map_size_pixels * 3)
-        
+
         # Make a nice big (10"x10") figure
         fig = plt.figure(figsize=(10,10))
 
@@ -107,7 +103,7 @@ class Visualizer(object):
         '''
 
         # If zero-angle was indicated, grab first angle to compute rotation
-        if self.start_angle is None and self.zero_angle != 0: 
+        if self.start_angle is None and self.zero_angle != 0:
             self.start_angle = theta_deg
             self.rotate_angle = self.zero_angle - self.start_angle
 
@@ -129,11 +125,11 @@ class Visualizer(object):
         l = 0.1
         dx = l * c
         dy = l * s
- 
+
         s = self.map_scale_meters_per_pixel
 
-        self.vehicle=self.ax.arrow(x_m/s, y_m/s, 
-                dx, dy, head_width=Visualizer.ROBOT_WIDTH_M/s, 
+        self.vehicle=self.ax.arrow(x_m/s, y_m/s,
+                dx, dy, head_width=Visualizer.ROBOT_WIDTH_M/s,
                 head_length=Visualizer.ROBOT_HEIGHT_M/s, fc='r', ec='r')
 
         # Show trajectory if indicated
@@ -142,7 +138,7 @@ class Visualizer(object):
             self.ax.add_line(mlines.Line2D((self.prevpos[0],currpos[0]), (self.prevpos[1],currpos[1])))
         self.prevpos = currpos
 
-    def _refresh(self):                   
+    def _refresh(self):
 
         # If we have a new figure, something went wrong (closing figure failed)
         if self.figid != id(plt.gcf()):
@@ -165,9 +161,9 @@ class Visualizer(object):
         s = self.map_scale_meters_per_pixel
 
         return x_m/s, y_m/s
-    
+
 class MapVisualizer(Visualizer):
-    
+
     def __init__(self, map_size_pixels, map_size_meters, title='MapVisualizer', show_trajectory=False):
 
         # Put origin in lower left; disallow zero-angle setting
@@ -191,4 +187,3 @@ class MapVisualizer(Visualizer):
             self.img_artist.set_data(mapimg)
 
         return self._refresh()
-
